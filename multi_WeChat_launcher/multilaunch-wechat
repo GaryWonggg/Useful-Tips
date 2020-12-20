@@ -1,0 +1,14 @@
+#!/bin/bash
+
+process_counter=`ps -ef | grep -c "MacOS\/WeChat$"`
+if test $[process_counter] -gt 1
+then
+        echo 'ERR: multi launch processor number is over than the upper limit'
+        exit 0
+else
+        nohup /Applications/WeChat.app/Contents/MacOS/WeChat > /dev/null 2>&1 &
+        if test $? -eq 0
+        then
+                echo 'INFO: duplicates wechat processor is running'
+        fi
+fi
